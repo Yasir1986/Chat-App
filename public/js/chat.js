@@ -4,10 +4,16 @@ const socket = io()
 // client (emit) => server (receive) --acknowledgement ==> client
 
 // Elements 
+// const $messageForm = document.querySelector('#message-form')
+// const $messageFromInput = document.querySelector('input')
+// const $messageFormButton = document.querySelector('#send-btn')
+// const $sendLocationButton = document.querySelector('#send-location')
+// const $messages = document.querySelector('#messages')
+
 const $messageForm = document.querySelector('#message-form')
-const $messageFromInput = document.querySelector('input')
-const $messageFormButton = document.querySelector('#send-btn')
-const $sendLocationButton = document.querySelector('#send-location-btn')
+const $messageFormInput = $messageForm.querySelector('input')
+const $messageFormButton = $messageForm.querySelector('button')
+const $sendLocationButton = document.querySelector('#send-location')
 const $messages = document.querySelector('#messages')
 
 // Templates
@@ -43,8 +49,8 @@ $messageForm.addEventListener('submit', (e) => {
     socket.emit('sendMessage', message, (error) => {
         // enable form
         $messageFormButton.removeAttribute('disabled')
-        $messageFromInput.value = ''
-        $messageFromInput.focus()
+        $messageFormInput.value = ''
+        $messageFormInput.focus()
     
         if (error) {
             return console.log(error)
