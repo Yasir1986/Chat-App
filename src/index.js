@@ -21,8 +21,16 @@ io.on("connection", (socket) => {
   console.log("Web socket connection...");
 
   //for single connected client only
-  socket.emit("message", generateMessage("Welcome!"));
-  socket.broadcast.emit("message", generateMessage("A new user has joined!"));
+  
+ socket.on('join', ({ username, room }) => {
+    socket.join(room)
+
+    socket.emit('message', generateMessage('Welcome!'))
+    socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined!`))
+
+    // socket.emit, io.emit, socket.broadcast.emit
+    // io.to.emit, socket.boradcase.to.emit
+ })
 
   socket.on("sendMessage", (message, callback) => {
     const filter = new Filter();
@@ -32,7 +40,7 @@ io.on("connection", (socket) => {
     }
 
     //for all connected client
-    io.emit("message", generateMessage(message));
+    io.to('Center City').emit('message', generateMessage(message));
     callback();
   });
 
