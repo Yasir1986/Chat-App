@@ -10,8 +10,3 @@ Follow the steps to run this Chat-App
 3)npm start
 
 Enjoy
-
-Or
-
-Live deploy Link:
-https://chat-app-version-1.herokuapp.com/
